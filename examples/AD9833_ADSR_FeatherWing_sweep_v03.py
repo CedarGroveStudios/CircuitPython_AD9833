@@ -19,7 +19,7 @@ try:
     digi_pot = cedargrove_ad5245.AD5245(address=0x2C)
     digi_pot.shutdown()  # mute the output before instantiating wave_gen
     digi_pot_connected = True
-except:
+except RuntimeError as e:
     print("AD5245 digital potentiometer not connected.")
     digi_pot_connected = False
 
