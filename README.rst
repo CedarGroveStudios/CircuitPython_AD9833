@@ -9,8 +9,8 @@ Introduction
     :alt: Discord
 
 
-.. image:: https://github.com/CedarGroveStudios/Cedargrove_CircuitPython_AD9833/workflows/Build%20CI/badge.svg
-    :target: https://github.com/CedarGroveStudios/Cedargrove_CircuitPython_AD9833/actions
+.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/workflows/Build%20CI/badge.svg
+    :target: https://github.com/CedarGroveStudios/CircuitPython_AD9833/actions
     :alt: Build Status
 
 
