@@ -9,8 +9,8 @@ Introduction
     :alt: Discord
 
 
-.. image:: https://github.com/CedarGroveStudios/Cedargrove_CircuitPython_AD9833/workflows/Build%20CI/badge.svg
-    :target: https://github.com/CedarGroveStudios/Cedargrove_CircuitPython_AD9833/actions
+.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/workflows/Build%20CI/badge.svg
+    :target: https://github.com/CedarGroveStudios/CircuitPython_AD9833/actions
     :alt: Build Status
 
 
@@ -79,14 +79,13 @@ Documentation
 =============
 `AD9833 CircuitPython Driver API Class Description <https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/pseudo_readthedocs_cedargrove_ad9833.pdf>`_
 
-`CedarGrove AD9833 Precision Waveform Generator FeatherWing OSH Park Project <https://oshpark.com/shared_projects/WcYMJx7L>`_
+`CedarGrove AD9833 Precision Waveform Generator FeatherWing OSH Park Project <https://oshpark.com/shared_projects/al6aPN0u>`_
 
-.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/AD5245_breakout_for_fritzing.png
+.. note .. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/AD5245_breakout_for_fritzing.png
 
+`CedarGrove AD9833 ADSR Precision Waveform Generator FeatherWing OSH Park Project <https://oshpark.com/shared_projects/RoKf63De>`_
 
-`CedarGrove AD9833 ADSR Precision Waveform Generator FeatherWing OSH Park Project <https://oshpark.com/shared_projects/WcYMJx7L>`_
-
-.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/AD5245_breakout_for_fritzing.png
+.. note .. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/AD5245_breakout_for_fritzing.png
 
 
 For information on building library documentation, please check out
