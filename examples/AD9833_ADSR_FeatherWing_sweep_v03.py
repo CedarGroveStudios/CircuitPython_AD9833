@@ -14,6 +14,7 @@ Tested with Adafruit Feather M4 Express and CircuitPython 8.0.0-beta.1
 
 import time
 import cedargrove_ad5245
+import cedargrove_ad9833
 
 try:
     digi_pot = cedargrove_ad5245.AD5245(address=0x2C)
@@ -22,8 +23,6 @@ try:
 except RuntimeError as e:
     print("AD5245 digital potentiometer not connected.")
     digi_pot_connected = False
-
-import cedargrove_ad9833
 
 wave_gen = cedargrove_ad9833.AD9833(select="D6")
 
