@@ -18,7 +18,17 @@ Introduction
     :target: https://github.com/psf/black
     :alt: Code Style: Black
 
-A CircuitPython driver for the AD9833 Waveform Generator.
+A CircuitPython driver for the AD9833 Programmable Waveform Generator.
+
+The AD9833 is a programmable waveform generator that produces sine, square, and
+triangular waveform output from 0 MHz to 12.5MHz with 28-bit resolution. The
+CircuitPython SPI driver controls the waveform generator's frequency, phase, and
+waveshape.
+
+The Cedar Grove AD9833 Precision Waveform Generator and AD9833 ADSR Precision
+Waveform Generator FeatherWings provide all the support circuitry for the
+AD9833. The ADSR (Attack, Decay, Sustain, Release) version incorporates the
+AD5245 digital potentiometer to provide output amplitude control.
 
 
 Dependencies
@@ -31,35 +41,7 @@ Please ensure all dependencies are available on the CircuitPython filesystem.
 This is easily achieved by downloading
 `the Adafruit library and driver bundle <https://circuitpython.org/libraries>`_
 or individual libraries can be installed using
-`circup <https://github.com/adafruit/circup>`_.Installing from PyPI
-=====================
-.. note:: This library is not available on PyPI yet. Install documentation is included
-   as a standard element. Stay tuned for PyPI availability!
-
-.. todo:: Remove the above note if PyPI version is/will be available at time of release.
-
-On supported GNU/Linux systems like the Raspberry Pi, you can install the driver locally `from
-PyPI <https://pypi.org/project/Cedargrove-circuitpython-ad9833/>`_.
-To install for current user:
-
-.. code-block:: shell
-
-    pip3 install Cedargrove-circuitpython-ad9833
-
-To install system-wide (this may be required in some cases):
-
-.. code-block:: shell
-
-    sudo pip3 install Cedargrove-circuitpython-ad9833
-
-To install in a virtual environment in your current project:
-
-.. code-block:: shell
-
-    mkdir project-name && cd project-name
-    python3 -m venv .venv
-    source .env/bin/activate
-    pip3 install Cedargrove-circuitpython-ad9833
+`circup <https://github.com/adafruit/circup>`_.
 
 Installing to a Connected CircuitPython Device with Circup
 ==========================================================
@@ -76,7 +58,7 @@ following command to install:
 
 .. code-block:: shell
 
-    circup install ad9833
+    circup install cedargrove_ad9833
 
 Or the following command to update an existing version:
 
@@ -87,12 +69,25 @@ Or the following command to update an existing version:
 Usage Example
 =============
 
-.. todo:: Add a quick, simple example. It and other examples should live in the
-examples folder and be included in docs/examples.rst.
+.. code-block:: python
+
+    # insert code here
+
+``ad9833_simpletest.py`` and other examples can be found in the ``examples`` folder.
 
 Documentation
 =============
-API documentation for this library can be found on `Read the Docs <https://circuitpython-ad9833.readthedocs.io/>`_.
+`AD9833 CircuitPython Driver API Class Description <https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/pseudo_readthedocs_cedargrove_ad9833.pdf>`_
+
+`CedarGrove AD9833 Precision Waveform Generator FeatherWing OSH Park Project <https://oshpark.com/shared_projects/WcYMJx7L>`_
+
+.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/AD5245_breakout_for_fritzing.png
+
+
+`CedarGrove AD9833 ADSR Precision Waveform Generator FeatherWing OSH Park Project <https://oshpark.com/shared_projects/WcYMJx7L>`_
+
+.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/AD5245_breakout_for_fritzing.png
+
 
 For information on building library documentation, please check out
 `this guide <https://learn.adafruit.com/creating-and-sharing-a-circuitpython-library/sharing-our-docs-on-readthedocs#sphinx-5-1>`_.
