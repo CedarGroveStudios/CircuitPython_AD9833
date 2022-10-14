@@ -88,7 +88,7 @@ Documentation
 
 `CedarGrove AD9833 ADSR Precision Waveform Generator FeatherWing OSH Park Project <https://oshpark.com/shared_projects/RoKf63De>`_
 
-.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/Waveform_Gen_ADSR close.png
+.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/Waveform_Gen_ADSR_close.png
 
 
 For information on building library documentation, please check out
