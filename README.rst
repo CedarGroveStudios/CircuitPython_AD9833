@@ -24,7 +24,7 @@ A CircuitPython driver for the AD9833 Programmable Waveform Generator.
 
 
 The AD9833 is a programmable waveform generator that produces sine, square, and
-triangular waveform output from 0 MHz to 12.5MHz with 28-bit resolution. The
+triangular waveform output from 0 MHz to 12.5MHz with 28-bit frequency resolution. The
 CircuitPython SPI driver controls the waveform generator's frequency, phase, and
 waveshape.
 
