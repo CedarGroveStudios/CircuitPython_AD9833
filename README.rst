@@ -20,6 +20,9 @@ Introduction
 
 A CircuitPython driver for the AD9833 Programmable Waveform Generator.
 
+.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/DSC05796_combo.jpg
+
+
 The AD9833 is a programmable waveform generator that produces sine, square, and
 triangular waveform output from 0 MHz to 12.5MHz with 28-bit resolution. The
 CircuitPython SPI driver controls the waveform generator's frequency, phase, and
@@ -81,11 +84,11 @@ Documentation
 
 `CedarGrove AD9833 Precision Waveform Generator FeatherWing OSH Park Project <https://oshpark.com/shared_projects/al6aPN0u>`_
 
-.. note .. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/AD5245_breakout_for_fritzing.png
+.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/Waveform_Generator_closeup.png
 
 `CedarGrove AD9833 ADSR Precision Waveform Generator FeatherWing OSH Park Project <https://oshpark.com/shared_projects/RoKf63De>`_
 
-.. note .. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/AD5245_breakout_for_fritzing.png
+.. image:: https://github.com/CedarGroveStudios/CircuitPython_AD9833/blob/master/media/Waveform_Gen_ADSR close.png
 
 
 For information on building library documentation, please check out
