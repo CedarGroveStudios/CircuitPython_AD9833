@@ -257,10 +257,10 @@ class AD9833:
 
     def _update_phase_register(self, new_phase, register=None):
         """Load inactive register with new phase value then set the
-        register active in order to to avoid partial phase changes. Writes to
+        register active in order to avoid partial phase changes. Writes to
         specified register if != None.
 
-        :param int new_freq: The new phase value.
+        :param int new_phase: The new phase value.
         :param union(int, None) register: The register for the new value; PHASE0
         or PHASE1. Selects the non-active register if register == None.
         """

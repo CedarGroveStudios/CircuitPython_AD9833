@@ -31,7 +31,7 @@ print("AD9833_ADSR_FeatherWing_sweep_v03.py")
 # Setup Parameters
 FREQUENCY_START = 20  # fixed or sweep starting frequency (Hz)
 FREQUENCY_END = 21000  # sweep ending frequency (Hz)
-FREQUENCY_STEP = 10  # sweep freqency step size (Hz)
+FREQUENCY_STEP = 10  # sweep frequency step size (Hz)
 PERIODS_PER_STEP = 3  # number of waveform periods to hold (non-linear mode)
 SWEEP_MODE = "non-linear"  # fixed (10ms per step) or non-linear sweep hold timing
 FREQUENCY_MODE = "sweep"  # fixed or sweep frequency
