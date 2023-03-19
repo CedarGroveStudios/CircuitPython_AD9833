@@ -1,18 +1,19 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 JG for Cedar Grove Maker Studios
+# SPDX-FileCopyrightText: Copyright (c) 2023 JG for Cedar Grove Maker Studios
 #
 # SPDX-License-Identifier: MIT
 """
-AD9833_ADSR_FeatherWing_sweep_v03.py 2022-10-12
+AD9833_ADSR_FeatherWing_sweep.py 2023-03-19 version 3.0.0
 
 Fixed or swept frequency generator example. Update "initial parameters"
 section for required functionality.
 
 Uses optional AD5245 digital potentiometer for output level control.
 
-Tested with Adafruit Feather M4 Express and CircuitPython 8.0.0-beta.1
+Tested with Adafruit Feather M4 Express and CircuitPython 8.0.3
 """
 
 import time
+import board
 import cedargrove_ad5245
 import cedargrove_ad9833
 
@@ -24,7 +25,7 @@ except RuntimeError as e:
     print("AD5245 digital potentiometer not connected.")
     digi_pot_connected = False
 
-wave_gen = cedargrove_ad9833.AD9833(select="D6")
+wave_gen = cedargrove_ad9833.AD9833(spi=board.SPI(), select=board.D6)
 
 print("AD9833_ADSR_FeatherWing_sweep_v03.py")
 

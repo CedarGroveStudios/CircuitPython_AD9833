@@ -39,7 +39,7 @@ class AD9833:
     The AD9833 is a programmable waveform generator that produces sine, square,
     and triangular waveform output from 0 MHz to 12.5MHz with 28-bit frequency
     resolution. The CircuitPython class sets the waveform generator's frequency,
-    phase, and waveshape properties as well as providing methods for
+    phase, and wave shape properties as well as providing methods for
     resetting, starting, pausing, and stopping the generator."""
 
     # pylint: disable=too-many-arguments
@@ -48,26 +48,30 @@ class AD9833:
         wave_freq=440,
         wave_phase=0,
         wave_type="sine",
-        select="D6",
+        spi=board.SPI(),
+        select=board.D6,
         m_clock=25000000,
     ):
-        """Initialize SPI bus interconnect, derive chip select pin (to allow
-        multiple class instances), and create the SPIDevice instance. During
-        intialization, the generator is reset and placed in the pause state.
+        """Initialize SPI bus interconnect and create the SPIDevice instance.
+        During initialization, the generator is reset and placed in the pause
+        state.
 
         :param int wave_freq: The 28-bit waveform frequency in Hz ranging from
         0 to 2 ** 28. Practical maximum is 12.5MHz (one-half the master clock
           frequency). Defaults to 440.
         :param int wave_phase: The waveform phase offset in 2π Rad // 4096.
           Defaults to 0.
-        :param str wave_type: The "sine", "triangle", or "square" waveshape.
+        :param str wave_type: The "sine", "triangle", or "square" wave shape.
           Defaults to "sine".
-        :param str select: The AD9833 chip select pin designation. Defaults to "D6".
+        :param busio.SPI spi: The board's `busio.SPI` definition. Defaults to
+        `board.SPI()`.
+        :param board select: The AD9833 chip select pin designation. Defaults to
+        `board.D6`.
         :param int m_clock: Master clock frequency in Hz. Defaults to 25MHz.
         """
 
-        self._spi = board.SPI()  # Define SPI bus
-        self._cs = digitalio.DigitalInOut(getattr(board, select))
+        self._spi = spi  # Define SPI bus
+        self._cs = digitalio.DigitalInOut(select)
         self._device = SPIDevice(
             self._spi, self._cs, baudrate=5000000, polarity=1, phase=0
         )
