@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2022 JG for Cedar Grove Maker Studios
+# SPDX-FileCopyrightText: Copyright (c) 2023 JG for Cedar Grove Maker Studios
 #
 # SPDX-License-Identifier: MIT
 """
@@ -63,9 +63,9 @@ class AD9833:
           Defaults to 0.
         :param str wave_type: The "sine", "triangle", or "square" wave shape.
           Defaults to "sine".
-        :param busio.SPI spi: The board's `busio.SPI` definition. Defaults to
+        :param busio.SPI spi: The `busio.SPI` definition. Defaults to
         `board.SPI()`.
-        :param board select: The AD9833 chip select pin designation. Defaults to
+        :param board select: The chip select pin designation. Defaults to
         `board.D6`.
         :param int m_clock: Master clock frequency in Hz. Defaults to 25MHz.
         """
