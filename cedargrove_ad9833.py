@@ -25,7 +25,6 @@ Implementation Notes
 """
 
 import board
-import busio
 import digitalio
 from adafruit_bus_device.spi_device import SPIDevice
 
@@ -67,7 +66,7 @@ class AD9833:
         :param int m_clock: Master clock frequency in Hz. Defaults to 25MHz.
         """
 
-        self._spi = busio.SPI(board.SCK, MOSI=board.MOSI)  # Define SPI bus
+        self._spi = board.SPI()  # Define SPI bus
         self._cs = digitalio.DigitalInOut(getattr(board, select))
         self._device = SPIDevice(
             self._spi, self._cs, baudrate=5000000, polarity=1, phase=0
