@@ -48,8 +48,8 @@ class AD9833:
         wave_freq=440,
         wave_phase=0,
         wave_type="sine",
-        spi=board.SPI(),
-        select=board.D6,
+        spi=None,
+        select=None,
         m_clock=25000000,
     ):
         """Initialize SPI bus interconnect and create the SPIDevice instance.
@@ -63,10 +63,8 @@ class AD9833:
           Defaults to 0.
         :param str wave_type: The "sine", "triangle", or "square" wave shape.
           Defaults to "sine".
-        :param busio.SPI spi: The `busio.SPI` definition. Defaults to
-        `board.SPI()`.
-        :param board select: The chip select pin designation. Defaults to
-        `board.D6`.
+        :param busio.SPI spi: The `busio.SPI` definition. Defaults to None.
+        :param board select: The chip select pin designation. Defaults to None.
         :param int m_clock: Master clock frequency in Hz. Defaults to 25MHz.
         """
 
