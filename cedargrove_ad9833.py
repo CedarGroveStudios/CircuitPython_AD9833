@@ -62,12 +62,12 @@ class AD9833:
           Defaults to 0.
         :param str wave_type: The "sine", "triangle", or "square" wave shape.
           Defaults to "sine".
-        :param busio.SPI spi: The `busio.SPI` definition. Defaults to None.
-        :param board select: The chip select pin designation. Defaults to None.
+        :param busio.SPI spi: The `busio.SPI` definition. Defaults to `None`.
+        :param board select: The chip select pin designation. Defaults to `None`.
         :param int m_clock: Master clock frequency in Hz. Defaults to 25MHz.
         """
 
-        self._spi = spi  # Define SPI bus
+        self._spi = spi  # Define SPI bus; 5Mhz clock frequency
         self._cs = digitalio.DigitalInOut(select)
         self._device = SPIDevice(
             self._spi, self._cs, baudrate=5000000, polarity=1, phase=0
@@ -82,11 +82,10 @@ class AD9833:
         self._freq_reg = 0  # FREQ0
         self._phase_reg = 0  # PHASE0
 
+        # Reset and pause the device
         self._pause = True
         self._reset = True
-
-        # Reset the device
-        self.reset()
+        self._update_control_register()
 
         # Set the master clock frequency
         self._m_clock = m_clock
@@ -98,8 +97,8 @@ class AD9833:
 
     @wave_freq.setter
     def wave_freq(self, new_wave_freq=440):
-        """:param int new_wave_freq: The waveform frequency in Hz.
-        Defaults to 440."""
+        """Set the frequency.
+        :param int new_wave_freq: The waveform frequency in Hz. Defaults to 440."""
         self._wave_freq = new_wave_freq
         self._wave_freq = max(self._wave_freq, 0)
         self._wave_freq = min(self._wave_freq, self._m_clock // 2)
@@ -112,8 +111,8 @@ class AD9833:
 
     @wave_phase.setter
     def wave_phase(self, new_wave_phase=0):
-        """:param int new_wave_phase: The waveform phase offset.
-        Defaults to 0."""
+        """Set the output phase value.
+        :param int new_wave_phase: The waveform phase offset. Defaults to 0."""
         self._wave_phase = int(new_wave_phase)
         self._wave_phase = max(self._wave_phase, 0)
         self._wave_phase = min(self._wave_phase, 4095)
@@ -126,7 +125,8 @@ class AD9833:
 
     @wave_type.setter
     def wave_type(self, new_wave_type="sine"):
-        """:param str new_wave_type: The waveform type. Defaults to 'sine'."""
+        """Set the waveform type.
+        :param str new_wave_type: The waveform type. Defaults to 'sine'."""
         self._wave_type = new_wave_type
         if self._wave_type not in ("triangle", "square", "sine"):
             # Default to sine in type isn't valid
@@ -135,33 +135,26 @@ class AD9833:
 
     def pause(self):
         """Pause the wave generator and freeze the output at the latest voltage
-        level by stopping the internal clock.
-        """
+        level by stopping the internal clock."""
         self._pause = True  # Set the pause bit
         self._update_control_register()
 
     def start(self):
         """Start the wave generator with current register contents, register
-        selection and wave mode setting.
-        """
-        self._reset = False  # Clear the reset bit
+        selection and wave mode setting."""
         self._pause = False  # Clear the clock disable bit
         self._update_control_register()
 
     def stop(self):
         """Stop the wave generator and reset the output to the midpoint
-        voltage level.
-        """
-        self._reset = True  # Sets the reset bit
-        self._pause = True  # Set the pause bit
+        voltage level."""
+        self._pause = True
+        self._reset = True
         self._update_control_register()
 
     def reset(self):
         """Stop and reset the waveform generator. Pause the master clock.
-        Update all registers with default values. Set sine wave mode. Clear the
-        reset mode but keep the master clock paused.
-        """
-        # Reset control register contents, pause, and put device in reset state
+        Update all registers with default values. Set `sine` wave mode."""
         self._reset = True
         self._pause = True
         self._freq_reg = 0
@@ -169,20 +162,15 @@ class AD9833:
         self._wave_type = "sine"
         self._update_control_register()
 
-        # While reset, zero the frequency and phase registers
+        # While paused, zero the frequency and phase registers
         self._update_freq_register(new_freq=0, register=0)
         self._update_freq_register(new_freq=0, register=1)
         self._update_phase_register(new_phase=0, register=0)
         self._update_phase_register(new_phase=0, register=1)
 
-        # Take the waveform generator out of reset state, master clock still paused
-        self._reset = False
-        self._update_control_register()
-
     def _send_data(self, data):
         """Send a 16-bit word through SPI bus as two 8-bit bytes.
-        :param int data: The 16-bit data value to write to the SPI device.
-        """
+        :param int data: The 16-bit data value to write to the SPI device."""
         data &= 0xFFFF
         tx_msb = data >> 8
         tx_lsb = data & 0xFF
@@ -192,21 +180,22 @@ class AD9833:
 
     def _update_control_register(self):
         """Construct the control register contents per existing local parameters
-        then send the new control register word to the waveform generator.
-        """
-        # Set default control register mask value (sine wave mode)
-        control_reg = 0x2000
-
+        then send the new control register word to the waveform generator."""
         if self._reset:
-            # Set the reset bit
-            control_reg |= 0x0100
+            # Immediately reset before updating register
+            self._send_data(0x2100)
+            self._reset = False
+            # return
+
+        # Set default control register mask value (sine mode, disable reset)
+        control_reg = 0x2000
 
         if self._pause:
             # Disable master clock bit
             control_reg |= 0x0080
 
-        control_reg |= self._freq_reg << 11  # Frequency register select bit
-        control_reg |= self._phase_reg << 10  # Phase register select bit
+        control_reg |= (self._freq_reg & 0x01) << 11  # Frequency register select bit
+        control_reg |= (self._phase_reg & 0x01) << 10  # Phase register select bit
 
         if self._wave_type == "triangle":
             # Set triangle mode
@@ -221,12 +210,11 @@ class AD9833:
     def _update_freq_register(self, new_freq, register=None):
         """Load inactive register with new frequency value then set the
         register active in order to avoid partial frequency changes. Writes to
-        specified register if != None.
+        specified register if not `None`.
 
         :param int new_freq: The new frequency value.
         :param union(int, None) register: The register for the new value; FREG0
-        or FREG1. Selects the non-active register if register == None.
-        """
+        or FREG1. Selects the non-active register if register is `None`."""
         self._wave_freq = new_freq
 
         if register is None:
@@ -258,11 +246,11 @@ class AD9833:
     def _update_phase_register(self, new_phase, register=None):
         """Load inactive register with new phase value then set the
         register active in order to avoid partial phase changes. Writes to
-        specified register if != None.
+        specified register if not `None`.
 
         :param int new_phase: The new phase value.
         :param union(int, None) register: The register for the new value; PHASE0
-        or PHASE1. Selects the non-active register if register == None.
+        or PHASE1. Selects the non-active register if register is `None`.
         """
         self._wave_phase = new_phase
 
