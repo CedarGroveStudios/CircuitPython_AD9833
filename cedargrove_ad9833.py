@@ -92,13 +92,13 @@ class AD9833:
 
     @property
     def wave_freq(self):
-        """The wave generator's floating or integer output frequency value."""
+        """The wave generator output frequency value."""
         return self._wave_freq
 
     @wave_freq.setter
     def wave_freq(self, new_wave_freq=440):
-        """Set the frequency.
-        :param int new_wave_freq: The waveform frequency in Hz. Defaults to 440."""
+        """Set the wave generator output frequency.
+        :param float new_wave_freq: The waveform frequency in Hz. Defaults to 440."""
         self._wave_freq = new_wave_freq
         self._wave_freq = max(self._wave_freq, 0)
         self._wave_freq = min(self._wave_freq, self._m_clock // 2)
@@ -106,12 +106,12 @@ class AD9833:
 
     @property
     def wave_phase(self):
-        """The wave generator's integer output phase value."""
+        """The wave generator integer output phase value."""
         return self._wave_phase
 
     @wave_phase.setter
     def wave_phase(self, new_wave_phase=0):
-        """Set the output phase value.
+        """Set the wave generator output phase value.
         :param int new_wave_phase: The waveform phase offset. Defaults to 0."""
         self._wave_phase = int(new_wave_phase)
         self._wave_phase = max(self._wave_phase, 0)
@@ -120,12 +120,12 @@ class AD9833:
 
     @property
     def wave_type(self):
-        """The wave generator's string waveform type value."""
+        """The wave generator waveform type value."""
         return self._wave_type
 
     @wave_type.setter
     def wave_type(self, new_wave_type="sine"):
-        """Set the waveform type.
+        """Set the wave generator waveform type.
         :param str new_wave_type: The waveform type. Defaults to 'sine'."""
         self._wave_type = new_wave_type
         if self._wave_type not in ("triangle", "square", "sine"):
