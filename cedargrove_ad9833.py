@@ -55,9 +55,9 @@ class AD9833:
         During initialization, the generator is reset and placed in the pause
         state.
 
-        :param int wave_freq: The 28-bit waveform frequency in Hz ranging from
-        0 to 2 ** 28. Practical maximum is 12.5MHz (one-half the master clock
-          frequency). Defaults to 440.
+        :param float wave_freq: The floating point waveform frequency in Hz
+        ranging from 0.09 to 12.5MHz (one-half the master clock frequency).
+        Defaults to 440. Resolution is approximately 0.09Hz.
         :param int wave_phase: The waveform phase offset in 2π Rad // 4096.
           Defaults to 0.
         :param str wave_type: The "sine", "triangle", or "square" wave shape.
@@ -92,7 +92,9 @@ class AD9833:
 
     @property
     def wave_freq(self):
-        """The wave generator output frequency value."""
+        """The frequency output of the wave generator. The wave_freq value can
+        differ slightly from the wave generator’s output frequency due to the
+        internal conversion needed for loading the DAC counter register."""
         return self._wave_freq
 
     @wave_freq.setter
@@ -103,6 +105,16 @@ class AD9833:
         self._wave_freq = max(self._wave_freq, 0)
         self._wave_freq = min(self._wave_freq, self._m_clock // 2)
         self._update_freq_register(self._wave_freq)
+
+    @property
+    def raw_wave_freq(self):
+        """The frequency output of the wave generator as derived from the
+        DAC counter register (FREQREG) value. The raw frequency is based on the
+        25Mhz master clock and the 28-bit DAC counter register. The raw wave
+        value can differ slightly from wave_freq due to the internal conversion
+        needed for loading the DAC counter register."""
+        freq_word = int(round(float(self._wave_freq * pow(2, 28)) / self._m_clock))
+        return freq_word * (self._m_clock / pow(2, 28))
 
     @property
     def wave_phase(self):
@@ -129,7 +141,7 @@ class AD9833:
         :param str new_wave_type: The waveform type. Defaults to 'sine'."""
         self._wave_type = new_wave_type
         if self._wave_type not in ("triangle", "square", "sine"):
-            # Default to sine in type isn't valid
+            # Default to sine if type isn't valid
             self._wave_type = "sine"
         self._update_control_register()
 
