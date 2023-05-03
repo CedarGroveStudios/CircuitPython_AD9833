@@ -41,6 +41,9 @@ _build
 
 # MacOS-specific files
 *.DS_Store
+*.key
+*.numbers
+*.pages
 
 # IDE-specific files
 .idea
