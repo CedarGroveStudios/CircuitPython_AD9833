@@ -57,7 +57,7 @@ if DEBUG:
 while True:
     print("reset")
     wave_gen.reset()
-    wave_gen.WAVE_TYPE = WAVE_TYPE
+    wave_gen.wave_type = WAVE_TYPE
     print("start")
     wave_gen.start()
     if digi_pot_connected:
